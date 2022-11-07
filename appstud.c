@@ -1,40 +1,61 @@
 #include<stdio.h>
-#define max 3
 struct student
 {
  int roll;
  char name[30];
  int marks[3];
  int avg;
-};
-int avg(struct student s1[])
+}temp;
+int calc(struct student a1[],int num)
 {
-  int arr[3];
-   for (int i = 0; i < 3; i++)
-   {
-  int result=0;
-  for (int k = 0; i < 3; i++)
+    for (int i = 0; i < num; i++)
   {
-    result+=s1[i].marks[k];
-  }
-  result /=3;
-  s1[i].avg=result;
-   }
-    
-   
-    for (int l = 0; l < 3; l++)
+    a1[i].avg=0;
+    for (int j = 0; j <3; j++)
     {
-        arr[l]=s1[l].avg;
+        a1[i].avg+=a1[i].marks[j];
     }
-  return arr;
+    a1[i].avg/=3;
+
+  }
+  
+  //swapping 
+  for(int k=0;k<num;k++){
+  for (int i = 0; i < num-1; i++)
+  {
+   
+    
+    if(a1[i].avg<a1[i+1].avg)
+    {
+       
+       temp=a1[i];
+       a1[i]=a1[i+1];
+       a1[i+1]=temp;
+    }
+  }
+  }
+  printf("********THE FINAL RESULT *******\n");
+  for (int k = 0; k <num ; k++)
+  {
+    printf("*****%d*****\n",k);
+    printf("Rank:%d\n",k+1);
+    printf("Roll:%d\n",a1[k].roll);
+    printf("name:%s\n",a1[k].name);
+    printf("avg:%d\n",a1[k].avg);
+
+  }
+  
+
 }
 
-
+//main method
 void main()
 {
-   struct student s1[max];
-   int i,j;
-   for ( i = 0; i < max; i++)
+   struct student s1[3];
+   int i,j,n;
+   printf("Enter the number of students:\n");
+   scanf("%d",&n);
+   for ( i = 0; i < n; i++)
    {
     printf("Enter the Roll Number:\n");
     scanf("%d",&s1[i].roll);
@@ -47,9 +68,10 @@ void main()
     
     }
    }
+   calc(s1,n);
      
      //getting the average 
-   int r[]= avg(s1);
+  
 
 
 
