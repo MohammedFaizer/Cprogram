@@ -47,7 +47,7 @@ struct Node* push(struct Node* headref,int xdata)
     newnode->data=xdata;
     newnode->next=headref;
 
-    mothernode->data=9;
+    mothernode->data=19;
     mothernode->next=newnode;
    
 
