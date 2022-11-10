@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+struct Node* push();
 struct Node
 {
     int data;
@@ -10,7 +10,7 @@ void printList(struct Node* n)
 {
  while(n!=NULL)
  {
-    printf("%d",n->data);
+    printf("%d\n",n->data);
     n=n->next;
  }
 }
@@ -33,7 +33,25 @@ int main()
     second->data=3;
     second->next=NULL;
 
-    printList(head);
+  struct Node* ret=push(head,5);
+    printList(ret);
 
     return 0;
+}
+struct Node* push(struct Node* headref,int xdata)
+{
+    struct Node* newnode=NULL;
+    struct Node* mothernode=NULL;
+    newnode=(struct Node*)malloc(sizeof(struct Node));
+    mothernode=(struct Node*)malloc(sizeof(struct Node));
+    newnode->data=xdata;
+    newnode->next=headref;
+
+    mothernode->data=7;
+    mothernode->next=newnode;
+   
+
+    
+
+
 }
