@@ -1,74 +1,123 @@
 #include<stdio.h>
 #include<stdlib.h>
-struct Node
+
+struct lnode
 {
     int data;
-    struct Node* next;
+    struct lnode *next;
 };
-struct Node* top=NULL;
 
-void push(int n)
+typedef struct lnode node;
+node* top=NULL;
+void push(int val)
 {
-   struct Node* newnode;
-   newnode=(struct Node*)malloc(sizeof(struct Node));
-   newnode->data=n;
-   if (top==NULL)
-   {
-     newnode->next=NULL;
-   }
-   else{
-    newnode->next=top;
-   }
-   top=newnode;
-   printf("data is inserted\n");
-    
-}
-void pop(){
-    if(top==NULL)
-    {
-        printf("stack is underflow");
-    }
-    else{
-        top=top->next;
-    }
-
-}
-
-void display()
-{
+    node* newNode=(node*)malloc(sizeof(node));
     if (top==NULL)
     {
-        printf("stack is underflow\n");
+        newNode->data=val;
+        newNode->next=NULL;
+        top=newNode;
     }
     else{
-        while (top!=NULL)
-        {
-            printf("the values are %d\n",top->data);
-            top=top->next;
-        }
-     
+        newNode->data=val;
+    newNode->next=top;
+    top = newNode;
+    }
+    
+}
+
+void pop()
+{
+
+    node* temp=top;
+
+    if(top == NULL)
+        printf("Stack is Empty\n");
+    else
+    {
+        printf("Poped element = %d\n", top->data);
+        temp =top;
+        top=top->next;
+        free(temp);
+    }
+}
+
+void printList()
+{
+     node *temp = top;
+    while(temp != NULL)
+    {
+         printf("%d->", temp->data);
+         temp = temp->next;
+    }
+    printf("NULL\n");
+}
+void peek()
+{
+    if(top==NULL)
+    {
+        printf("nothing to peek \n");
+    }
+    else{
+        printf("peeeking %d \n",top->data);
     }
 
 }
-
-void main(){
-    int num,val;
-printf("Enter the Choice \n");
-scanf("%d",&num);
-switch (num)
+void search(int sear)
 {
-    case 1:
-          printf("Enter the number :");
-          scanf("%d",&val);
-          push(val);
-            break;
-    case 2:
-            pop();
-            break;
-    case 3:
-           display();
-           break;
+    int count=0,index=0;
+    node* temp=top;
+      if(top==NULL)
+      {
+        printf("Nothing to searched");
+      }
+      else
+      {
+        while (temp!=NULL)
+        {
+            index+=1;
+            if (temp->data==sear)
+            {
+                printf("item in [%d]index\n",index);
+                count+=1;
+            }
+            temp=temp->next;
+            
+        }
+        printf("There are %d in list\n",count);
+      }
 }
-main();
+void main()
+{
+    int choice,num;
+    printf("1>>push||2>>pop||3>>display||4>>peek||5>>search");
+    printf("Enter Your Choice:");
+    scanf("%d",&choice);
+    switch(choice)
+    {
+     case 1:
+     printf("Enter the value:");
+     scanf("%d",&num);
+     push(num);
+     break;
+     case 2:
+     pop();
+     break;
+     case 3:
+     printList();
+     break;
+     case 4:
+     peek();
+     break;   
+     case 5:
+     printf("Enter the value to be searched:");
+     scanf("%d",&num);
+     search(num);
+     break;
+     default:
+     printf("Please enter a correct choice code\n");
+     break;
+    }
+    main();
+   
 }
-
